@@ -4,22 +4,30 @@
     <meta charset="UTF-8">
     <title>Run Turtle Graphics</title>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/brython@3.9.5/brython.min.js"></script>
+    <style>
+        #turtle-container {
+            width: 1000px;
+            height: 1000px;
+            border: 1px solid black;
+        }
+    </style>
 </head>
 <body onload="brython()">
-    <button onclick="runPython()">Run Turtle Program</button>
+    <button onclick="run_turtle_program()">Run Turtle Program</button>
     <div id="turtle-container"></div>
-    
+
     <script type="text/python">
         from browser import document, html, window
         import turtle as t
 
-        def runPython(*args):
+        def run_turtle_program():
             canvas = document["turtle-container"]
-            canvas.clear()
-            turtle_screen = window.Turtle(canvas)
-            t.setup(1000, 1000)
-            t.hideturtle()
+            canvas.html = ''  # Clear the container before drawing
+            turtle_screen = t.Screen()
+            turtle_screen.screensize(1000, 1000)
+            turtle_screen.setworldcoordinates(-500, -500, 500, 500)
             t.speed(11)
+            t.hideturtle()
             t.penup()
             t.goto(50, -450)
             t.pensize(5)
@@ -29,6 +37,7 @@
             t.speed(10)
             t.circle(-300, 60)
             t.fd(100)
+
             # 绘制第一片叶子
             t.seth(10)
             t.fd(50)
@@ -45,6 +54,7 @@
             t.penup()
             t.fd(-140)
             t.seth(80)
+
             # 绘制第二片叶子
             t.pendown()
             t.speed(10)
@@ -142,6 +152,8 @@
             t.end_fill()
             t.done()
 
+        # 绑定按钮点击事件到Python函数
+        window.run_turtle_program = run_turtle_program
     </script>
 </body>
 </html>
